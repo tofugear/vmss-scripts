@@ -3,7 +3,6 @@
 function usage
 {
     echo "Usage: vm_init -g git_url -p private_key"
-
 }
 
 while [ "$1" != "" ]; do
@@ -23,12 +22,22 @@ while [ "$1" != "" ]; do
     shift
 done
 
-mkdir -p ~/.ssh
-chmod 700 ~/.ssh 
-echo $private_key > ~/.ssh/id_ed25519
-ssh-add ~/.ssh/id_ed25519
-mkdir -p /var/deploy 
+if [ -z "$git_url" ] || [ -z "$private_key" ]; then
+    usage    
+else
+    execute
+fi
 
-git clone $git_url /var/deploy 
 
-source /var/deploy/vm_deploy.sh
+function execute
+{
+    mkdir -p ~/.ssh
+    echo $private_key > ~/.ssh/deploy_id_ed25519
+    chmod -R 700 ~/.ssh 
+    ssh-add ~/.ssh/deploy_id_ed25519
+    mkdir -p /var/deploy 
+
+    git clone $git_url /var/deploy 
+
+    source /var/deploy/vm_deploy.sh
+}
