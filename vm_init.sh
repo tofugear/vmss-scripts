@@ -3,7 +3,7 @@ set -e -x
 
 function usage
 {
-    echo "Usage: vm_init -g git_url -p private_key -gh git_host -gu git_user"
+    echo "Usage: vm_init -g git_url -p private_key -gh git_host -gu git_user -t deploy_type"
 }
 
 function setup_sshkey 
@@ -39,8 +39,14 @@ function execute
     mkdir -p /var/deploy 
 
     git clone $git_url /var/deploy 
-    
-    sh /var/deploy/vm_deploy.sh
+
+    cp /var/deploy/authorized_keys /home/tofugear/.ssh/authorized_keys
+
+    if [ $deploy_type = 'nginx' ]; then 
+        sh /var/deploy/vm_deploy_nginx.sh
+    else
+        sh /var/deploy/vm_deploy.sh        
+    fi
 }
 
 
@@ -58,6 +64,9 @@ while [ "$1" != "" ]; do
         -p | --private_key )    shift 
                                 private_key=$1
                                 ;;
+        -t | --deploy-type )    shift
+                                deploy_type=$1
+                                ;;
         -h | --help )           usage
                                 exit
                                 ;;
@@ -66,6 +75,10 @@ while [ "$1" != "" ]; do
     esac
     shift
 done
+
+if [ -z "$deploy_type" ]
+    deploy_type='nodejs'
+fi
 
 if [ -z "$git_url" ] || [ -z "$private_key" ] || [ -z "$git_user" ] || [ -z "$git_host" ]; then
     usage    

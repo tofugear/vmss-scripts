@@ -1,8 +1,6 @@
 #!/bin/bash
 set -x -e
 
-cp /var/deploy/authorized_keys /home/tofugear/.ssh/authorized_keys
-
 # install base machine packages
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - 
 echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
