@@ -1,4 +1,5 @@
 #!/bin/sh
+set -x
 
 # install base machine packages
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - 
@@ -10,14 +11,9 @@ sudo apt -y install build-essential yarn
 sudo adduser --disabled-password --gecos "" webuser
 
 # install nvm on webuser 
-read -d '' install_nvm << EOF
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
-echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.bashrc
-echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm' >> ~/.bashrc
-source ~/.bashrc
-EOF
-
-sudo -u webuser -i bash -c $install_nvm
+chmod o+x /var/deploy/install_nvm.sh 
+sudo -u webuser -i bash -c /var/deploy/install_nvm.sh
+chmod o-x /var/deploy/install_nvm.sh 
 
 nvmsh = "source ~/.nvm/nvm.sh;"
 
