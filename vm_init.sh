@@ -1,5 +1,5 @@
-#!/bin/sh
-set -e
+#!/bin/bash
+set -e -x 
 
 function usage
 {
@@ -9,10 +9,9 @@ function usage
 function setup_sshkey 
 {
     mkdir -p ~/.ssh
-    private_key=$(echo $private_key | base64 --decode); 
     keyfile=~/.ssh/$git_host.key
-    echo $private_key > $keyfile
-
+    echo $private_key | base64 --decode > $keyfile
+    
     [ -f ~/.ssh/config ] && rm ~/.ssh/config
 
 cat >> ~/.ssh/config << EOF
@@ -24,8 +23,11 @@ EOF
 
     chmod 700 ~/.ssh 
     chmod 400 ~/.ssh/*
+    echo "run ssh-agent"
     eval `ssh-agent`
-    ssh-add
+
+    echo "run ssh-add"
+    ssh-add $keyfile
 
 }
 
