@@ -32,5 +32,5 @@ git clone git@bitbucket.org:tofugear/tech-summit-2017-nodejs.git /var/www/tech-s
 
 sudo ln -s /usr/bin/nodejs /usr/bin/node
 sudo env PATH=$PATH:/home/webuser/.nvm/versions/node/v7.5.0/bin /home/webuser/.config/yarn/global/node_modules/pm2/bin/pm2 startup systemd -u webuser --hp /home/webuser
-sudo -u webuser -i bash -c "/home/webuser/.nvm/versions/node/v7.5.0/bin/pm2 start /var/www/tech-summit-2017-nodejs --name techsummit"
+sudo -u webuser -i bash -c "source ~/.nvm/nvm.sh; /home/webuser/.nvm/versions/node/v7.5.0/bin/pm2 start /var/www/tech-summit-2017-nodejs/bin/www --name techsummit"
 
