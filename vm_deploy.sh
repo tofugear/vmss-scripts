@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -e
 
 # install base machine packages
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - 
@@ -17,5 +17,7 @@ chmod o-x /var/deploy/install_nvm.sh
 
 nvmsh = "source ~/.nvm/nvm.sh;"
 
+cmd = "$nvmsh yarn global add pm2"
+
 # install pm2
-sudo -u webuser -i bash -c '$nvmsh yarn global add pm2'
+sudo -u webuser -i bash -c $cmd
