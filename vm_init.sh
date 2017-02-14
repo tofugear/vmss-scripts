@@ -29,6 +29,8 @@ EOF
     echo "run ssh-add"
     ssh-add $keyfile
 
+    ssh-keyscan $git_host >> ~/.ssh/known_hosts
+
 }
 
 function execute
