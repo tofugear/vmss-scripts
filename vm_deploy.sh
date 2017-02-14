@@ -17,7 +17,8 @@ chmod o-x /var/deploy/install_nvm.sh
 
 nvmsh = "source ~/.nvm/nvm.sh;"
 
-cmd = "$nvmsh yarn global add pm2"
+# install node via nvm
+sudo -u webuser -i bash -c "$nvmsh nvm install v7.5"
 
 # install pm2
-sudo -u webuser -i bash -c $cmd
+sudo -u webuser -i bash -c "$nvmsh yarn global add pm2"
