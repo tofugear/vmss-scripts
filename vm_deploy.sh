@@ -17,7 +17,7 @@ chmod o+x /var/deploy/install_nvm.sh
 sudo -u webuser -i bash -c /var/deploy/install_nvm.sh
 chmod o-x /var/deploy/install_nvm.sh 
 
-nvmsh = "source ~/.nvm/nvm.sh;"
+nvmsh="source ~/.nvm/nvm.sh;"
 
 # install node via nvm
 sudo -u webuser -i bash -c "$nvmsh nvm install v7.5"
