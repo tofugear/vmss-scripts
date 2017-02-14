@@ -26,3 +26,13 @@ sudo -u webuser -i bash -c "$nvmsh nvm install v7.5"
 
 # install pm2
 sudo -u webuser -i bash -c "$nvmsh yarn global add pm2"
+
+# deploy node js project
+mkdir -p /var/www/tech-summit-2017-nodejs
+chown tofugear:webuser /var/www/tech-summit-2017-nodejs
+git clone git@bitbucket.org:tofugear/tech-summit-2017-nodejs.git /var/www/tech-summit-2017-nodejs
+
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+sudo env PATH=$PATH:/home/webuser/.nvm/versions/node/v7.5.0/bin /home/webuser/.config/yarn/global/node_modules/pm2/bin/pm2 startup systemd -u webuser --hp /home/webuser
+sudo -u webuser -i bash -c "/home/webuser/.nvm/versions/node/v7.5.0/bin/pm2 start /var/www/tech-summit-2017-nodejs --name techsummit"
+
