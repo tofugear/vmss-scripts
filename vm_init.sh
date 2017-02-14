@@ -39,7 +39,7 @@ function execute
     mkdir -p /var/deploy 
 
     git clone $git_url /var/deploy 
-
+    
     sh /var/deploy/vm_deploy.sh
 }
 
