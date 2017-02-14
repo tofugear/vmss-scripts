@@ -76,7 +76,7 @@ while [ "$1" != "" ]; do
     shift
 done
 
-if [ -z "$deploy_type" ]
+if [ -z "$deploy_type" ]; then
     deploy_type='nodejs'
 fi
 
