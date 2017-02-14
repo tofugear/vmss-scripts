@@ -7,8 +7,10 @@ echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources
 sudo apt update
 sudo apt -y install build-essential yarn
 
-# setup webuser 
-sudo adduser --disabled-password --gecos "" webuser
+# setup webuser if webuser not yet created 
+if [ ! `id -u webuser 2>/dev/null || echo -1` -ge 0 ]
+    sudo adduser --disabled-password --gecos "" webuser
+fi
 
 # install nvm on webuser 
 chmod o+x /var/deploy/install_nvm.sh 
