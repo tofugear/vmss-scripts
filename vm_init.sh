@@ -45,7 +45,7 @@ function execute
     if [ $deploy_type = 'nginx' ]; then 
         sh /var/deploy/vm_deploy_nginx.sh
     else
-        sh /var/deploy/vm_deploy.sh        
+        sh /var/deploy/vm_deploy_nodejs.sh        
     fi
 }
 
